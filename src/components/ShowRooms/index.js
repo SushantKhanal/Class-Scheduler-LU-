@@ -1,5 +1,4 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
 import { db } from "../../firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import ListItems from "./ListItems";
@@ -16,12 +15,12 @@ export default function ShowRooms(props) {
       console.log("The collection of rooms is here, ", data);
     };
     getRooms();
-  }, [roomsCollectionRef]);
+  }, []);
 
   return (
     <div>
       {/* <Typography paragraph>List of Rooms: </Typography> */}
-      <ListItems rooms={rooms} />
+      <ListItems rooms={rooms} userData={props.userData} />
     </div>
   );
 }

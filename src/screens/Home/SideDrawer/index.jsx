@@ -4,29 +4,37 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import { useState, useEffect } from "react";
-import {
-  ABOUT,
-  ADD_ROOM,
-  SHOW_ROOMS,
-  REPORTS,
-} from "./constants";
+import { ABOUT, ADD_ROOM, SHOW_ROOMS, REPORTS } from "./constants";
 import DrawerList from "./DrawerList";
 import ContentBox from "../ContentBox";
+import { getItem } from "../../../utils/localStorageService";
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer() {
-  let [currentDrawerTab, setCurrentDrawerTab] = useState(ADD_ROOM);
+  let [currentDrawerTab, setCurrentDrawerTab] = useState(ABOUT);
+  const [userData, setUserData] = useState({});
 
-  const drawerItemsList = [
-    ABOUT,
-    ADD_ROOM,
-    SHOW_ROOMS,
-    REPORTS,
-  ];
+  let drawerItemsList = [ABOUT, ADD_ROOM, SHOW_ROOMS, REPORTS];
+
+  useEffect(() => {
+    let userData = getItem("userData");
+    if (userData) {
+      userData = JSON.parse(userData);
+      setUserData(userData);
+    }
+  }, [setUserData]);
 
   const changeCurrentTabHandler = (newTab) => {
     setCurrentDrawerTab(newTab);
+  };
+
+  const getDrawerListItems = () => {
+    const drawerList =
+      userData.userType === "admin"
+        ? drawerItemsList
+        : drawerItemsList.filter((item) => item !== ADD_ROOM);
+    return drawerList;
   };
 
   useEffect(() => {
@@ -57,7 +65,7 @@ function ResponsiveDrawer() {
             open
           >
             <DrawerList
-              list={drawerItemsList}
+              list={getDrawerListItems()}
               changeCurrentTabHandler={(newTab) => {
                 changeCurrentTabHandler(newTab);
               }}
@@ -68,6 +76,7 @@ function ResponsiveDrawer() {
         <ContentBox
           drawerWidth={drawerWidth}
           currentDrawerTab={currentDrawerTab}
+          userData={userData}
         />
       </Box>
     </div>

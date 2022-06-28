@@ -28,6 +28,7 @@ export default function AddRoom(props) {
         name,
         occupied: false,
         type,
+        roomStatus: "",
       });
       console.log("result", result);
     } catch (err) {

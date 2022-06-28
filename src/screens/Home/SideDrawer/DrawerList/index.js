@@ -5,10 +5,10 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { ADD_ROOM } from "../constants";
+import { ABOUT } from "../constants";
 
 export default function DrawerList(props) {
-  let [currentDrawerTab, setCurrentDrawerTab] = React.useState(ADD_ROOM);
+  let [currentDrawerTab, setCurrentDrawerTab] = React.useState(ABOUT);
   return (
     <div>
       <List>

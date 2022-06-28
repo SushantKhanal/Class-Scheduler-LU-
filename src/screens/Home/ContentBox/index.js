@@ -12,18 +12,19 @@ import {
   REPORTS,
 } from "../SideDrawer/constants";
 
-let components = {
-  [ABOUT]: <About />,
-  [ADD_ROOM]: <AddRoom />,
-  [SHOW_ROOMS]: <ShowRooms />,
-  [REPORTS]: <Reports />,
-};
-
 export default function ContentBox(props) {
   const getSuitableComponent = (currentDrawerTab) => {
     let component = components[currentDrawerTab];
     return component;
   };
+
+  let components = {
+    [ABOUT]: <About userData={props.userData}/>,
+    [ADD_ROOM]: <AddRoom userData={props.userData}/>,
+    [SHOW_ROOMS]: <ShowRooms userData={props.userData}/>,
+    [REPORTS]: <Reports  userData={props.userData}/>,
+  };
+
   return (
     <Box
       component="main"
