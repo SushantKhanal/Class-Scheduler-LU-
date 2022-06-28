@@ -3,21 +3,24 @@ import SideDrawer from "./SideDrawer";
 import Emitter from "../../shared/Emitter";
 import { updateLocalStorageUserData } from "../../utils/localStorageService";
 import { LOGOUT_EVENT } from "../../constants";
+import React from "react";
 
-export default function Home(props) {
-  const onLogOutSuccess = (res) => {
+export default class Home extends React.Component {
+  onLogOutSuccess = () => {
     updateLocalStorageUserData(null, false);
     Emitter.emit(LOGOUT_EVENT, null);
   };
 
-  return (
-    <div>
-      <ButtonAppBar
-        onLogOutSuccess={() => {
-          onLogOutSuccess({});
-        }}
-      />
-      <SideDrawer />
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <ButtonAppBar
+          onLogOutSuccess={() => {
+            this.onLogOutSuccess({});
+          }}
+        />
+        <SideDrawer />
+      </div>
+    );
+  }
 }

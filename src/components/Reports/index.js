@@ -80,7 +80,7 @@ export default function Reports() {
       "href",
       "data:text/plain;charset=utf-8," + encodeURIComponent(longString)
     );
-    element.setAttribute("download", "RoomsReport");
+    element.setAttribute("download", "Report");
     element.style.display = "none";
     document.body.appendChild(element);
     element.click();
