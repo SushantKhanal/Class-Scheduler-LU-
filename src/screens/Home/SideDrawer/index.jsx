@@ -4,7 +4,14 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import { useState, useEffect } from "react";
-import { ABOUT, ADD_ROOM, SHOW_ROOMS, REPORTS } from "./constants";
+import {
+  ABOUT,
+  ADD_ROOM,
+  ADD_COURSES,
+  SHOW_COURSES,
+  SHOW_ROOMS,
+  REPORTS,
+} from "./constants";
 import DrawerList from "./DrawerList";
 import ContentBox from "../ContentBox";
 import { getItem } from "../../../utils/localStorageService";
@@ -15,7 +22,14 @@ function ResponsiveDrawer() {
   let [currentDrawerTab, setCurrentDrawerTab] = useState(ABOUT);
   const [userData, setUserData] = useState({});
 
-  let drawerItemsList = [ABOUT, ADD_ROOM, SHOW_ROOMS, REPORTS];
+  let drawerItemsList = [
+    ABOUT,
+    ADD_ROOM,
+    SHOW_ROOMS,
+    REPORTS,
+    ADD_COURSES,
+    SHOW_COURSES,
+  ];
 
   useEffect(() => {
     let userData = getItem("userData");
@@ -33,7 +47,9 @@ function ResponsiveDrawer() {
     const drawerList =
       userData.userType === "admin"
         ? drawerItemsList
-        : drawerItemsList.filter((item) => item !== ADD_ROOM);
+        : drawerItemsList.filter(
+            (item) => item !== ADD_ROOM && item !== ADD_COURSES
+          );
     return drawerList;
   };
 

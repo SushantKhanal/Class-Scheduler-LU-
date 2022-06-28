@@ -1,55 +1,74 @@
 import * as React from "react";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-
 import { db } from "../../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-const userCollectionRef = collection(db, "deliveryInfo");
+const roomsCollectionRef = collection(db, "rooms");
+const coursesCollectionRef = collection(db, "courses");
 
 export default function Reports() {
-  const [reports, setReports] = useState([]);
+  const [roomsReport, setRoomsReport] = useState([]);
+  const [coursesReport, setCoursesReport] = useState([]);
 
   useEffect(() => {
-    const getUsers = async () => {
-      let data = await getDocs(userCollectionRef);
-      data = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setReports(data);
+    const getRooms = async () => {
+      let rooms = await getDocs(roomsCollectionRef);
+      rooms = rooms.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setRoomsReport(rooms);
     };
-    getUsers();
+    getRooms();
   }, []);
 
-  const generateTextFile = () => {
+  useEffect(() => {
+    const getCourses = async () => {
+      let data = await getDocs(coursesCollectionRef);
+      data = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setCoursesReport(data);
+    };
+    getCourses();
+  }, []);
+
+  //courseName, courseCapacity, level, studentsWilling
+
+  const generateCoursesFile = () => {
     var longString = "";
-    reports.forEach(function (report, i) {
+    coursesReport.forEach(function (report, i) {
       longString +=
-        "Parcel " +
-        (i + 1) +
+        report.level +
+        " Level Course " +
+        ", " +
+        "Course Name: " +
+        report.courseName +
+        ", " +
+        "Course Capacity: " +
+        report.courseCapacity +
+        ", " +
+        "Students Willing: " +
+        report.studentsWilling +
+        ".  \n \n";
+    });
+    downloadTextFile(longString);
+  };
+
+  const generateRoomsReport = () => {
+    var longString = "";
+    roomsReport.forEach(function (report, i) {
+      longString +=
+        "Building " +
         "(" +
-        report.deliveryStatus +
+        report.building +
         "):\n" +
-        "Current Address: " +
-        report.currentAddress +
+        "Room Name: " +
+        report.name +
         ", " +
-        "Receiver Status: " +
-        report.receiverAddress +
+        "Is Room Occupied: " +
+        report.occupied +
         ", " +
-        "Receiver Name: " +
-        report.receiverName +
+        "Room Status: " +
+        report.roomStatus +
         ", " +
-        "Receiver Zip: " +
-        report.receiverZip +
-        ", " +
-        "Sender Address: " +
-        report.senderAddress +
-        ", " +
-        "Sender Name: " +
-        report.senderName +
-        ", " +
-        "Sender Zip: " +
-        report.senderZip +
-        ", " +
-        "Tracking Number: " +
-        report.trackingNumber +
+        "Room Type: " +
+        report.type +
         ".  \n \n";
     });
     downloadTextFile(longString);
@@ -61,7 +80,7 @@ export default function Reports() {
       "href",
       "data:text/plain;charset=utf-8," + encodeURIComponent(longString)
     );
-    element.setAttribute("download", "reports");
+    element.setAttribute("download", "RoomsReport");
     element.style.display = "none";
     document.body.appendChild(element);
     element.click();
@@ -70,15 +89,26 @@ export default function Reports() {
 
   return (
     <div>
-      {reports && (
+      {roomsReport && (
         <Button
           onClick={() => {
-            // generateTextFile();
+            generateRoomsReport();
           }}
         >
-          Download Text File
+          Download Rooms Report as text file
         </Button>
       )}
+      <div>
+        {coursesReport && (
+          <Button
+            onClick={() => {
+              generateCoursesFile();
+            }}
+          >
+            Download Courses Report as text file
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

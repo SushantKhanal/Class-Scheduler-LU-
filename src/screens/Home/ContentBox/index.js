@@ -5,10 +5,14 @@ import About from "../../../components/About";
 import ShowRooms from "../../../components/ShowRooms";
 import Reports from "../../../components/Reports";
 import AddRoom from "../../../components/AddRoom";
+import AddCourses from "../../../components/AddCourses";
+import ShowCourses from "../../../components/ShowCourses";
 import {
   ABOUT,
   ADD_ROOM,
   SHOW_ROOMS,
+  ADD_COURSES,
+  SHOW_COURSES,
   REPORTS,
 } from "../SideDrawer/constants";
 
@@ -23,6 +27,8 @@ export default function ContentBox(props) {
     [ADD_ROOM]: <AddRoom userData={props.userData}/>,
     [SHOW_ROOMS]: <ShowRooms userData={props.userData}/>,
     [REPORTS]: <Reports  userData={props.userData}/>,
+    [ADD_COURSES]: <AddCourses userData={props.userData}/>,
+    [SHOW_COURSES]: <ShowCourses userData={props.userData}/>,
   };
 
   return (
