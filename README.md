@@ -1,12 +1,16 @@
-## A simple room scheduling system for Lamar University 
+## A simple room scheduling system for Lamar University
 
-### Based on Javascript language, react framework and firebase database
+### This project is built on React JS(Javascript).
 
-#### Download this project open a command line and in the project directory enter "npm install"
+### This project utilises a non sql database built on firebase
 
-#### Then enter "npm start" in the command line to start this project.
+#### Steps to run the project
 
-In the login page the username is "admin" and password is also "admin"
+1. Make Sure node version 14.8 or higher is installed
+2. install npm
+3. Run "npm install", this will download all the necessary dapendencies
+4. Run "npm start" to launch the application
 
-React Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To login as admin, any non-empty username is valid, but the password must be "admin"
+
+To login as client, any non-empty username and a password other than "admin" is valid

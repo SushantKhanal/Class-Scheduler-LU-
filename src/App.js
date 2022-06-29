@@ -8,18 +8,18 @@ import Emitter from "./shared/Emitter";
 import SignIn from "./screens/authentication/SignIn";
 import Home from "./screens/Home";
 
-function App() {
+export default function App() {
   let [isLoggedIn, setLoggedIn] = useState(false);
-
-  const changeLoggedInStateHandler = (data, state) => {
-    updateLocalStorageUserData(data, state);
-    setLoggedIn(state);
-  };
 
   useEffect(() => {
     const userData = getItem("userData");
     if (userData) setLoggedIn(true);
   }, []);
+
+  const changeLoggedInStateHandler = (data, state) => {
+    updateLocalStorageUserData(data, state);
+    setLoggedIn(state);
+  };
 
   useEffect(() => {
     Emitter.on(LOGOUT_EVENT, (data) => {
@@ -45,5 +45,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

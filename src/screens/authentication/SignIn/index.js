@@ -1,14 +1,14 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import CircularProgress from "@mui/material/CircularProgress";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
 export default function SignIn(props) {
@@ -96,32 +96,32 @@ export default function SignIn(props) {
 
   const theme = createTheme();
 
+  const layoutStyle = {
+    width: "100vw",
+    height: "100vh",
+    display: "flex",
+    backgroundColor: "#1976d2",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const cardStyle = {
+    padding: 5,
+    width: 450,
+    height: 500,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      width: "100vw",
+      height: "100vh",
+    },
+  };
+
   return (
-    <div
-      style={{
-        backgroundColor: "#1976d2",
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div style={layoutStyle}>
       <CssBaseline />
-      <Card
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: 5,
-          width: 450,
-          height: 500,
-          [theme.breakpoints.down("sm")]: {
-            width: "100vw",
-            height: "100vh",
-          },
-        }}
-      >
+      <Card sx={cardStyle}>
         {isLoading ? (
           loading()
         ) : (
